@@ -1,4 +1,4 @@
-<div align="center" style="backgorund-color: "#fff">
+<div align="center" style="backgorund-color: #fff">
  <img src="https://github.com/Rafiul007/Zipifly/blob/main/assets/logo.png" width="350">
 </div>
 
