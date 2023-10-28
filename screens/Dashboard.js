@@ -5,7 +5,7 @@ import {
   Button,
   StyleSheet,
   TouchableOpacity,
-  Image
+  Image,
 } from "react-native";
 import React, { useState } from "react";
 import { StatusBar } from "expo-status-bar";
@@ -48,8 +48,53 @@ const Dashboard = () => {
         </View>
       </SafeAreaView>
 
-      <View style={{justifyContent:"center",alignItems:"center",marginTop:100}}>
-        <Order/>
+      <View
+        style={{
+          flexDirection: "row",
+          alignItems: "flex-start",
+          justifyContent: "space-between",
+          marginTop: 50,
+          paddingLeft: 40,
+          marginRight: 40,
+        }}
+      >
+        <Text
+          style={{
+            fontSize: 17,
+            fontWeight: "600",
+          }}
+        >
+          Current Shipments
+        </Text>
+        <TouchableOpacity>
+          <Text
+            style={{
+              fontSize: 12,
+              color: "grey",
+              marginTop: 3,
+            }}
+          >
+            see all
+          </Text>
+        </TouchableOpacity>
+      </View>
+      <View
+        style={{
+          justifyContent: "center",
+          alignItems: "center",
+          marginTop: 20,
+        }}
+      >
+        <Order />
+      </View>
+      <View
+        style={{
+          justifyContent: "center",
+          alignItems: "center",
+          marginTop: 30,
+        }}
+      >
+        <Order />
       </View>
     </View>
   );
@@ -88,7 +133,7 @@ const styles = StyleSheet.create({
     top: 30,
     left: 20,
   },
-  ipic:{
+  ipic: {
     width: 20,
     height: 20,
   },

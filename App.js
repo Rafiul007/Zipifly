@@ -7,12 +7,13 @@ import {
   Ionicons,
   MaterialCommunityIcons,
 } from "@expo/vector-icons";
+
 import LogoScreen from "./screens/LogoScreen";
 import AuthScreen from "./screens/AuthScreen";
 import Signin from "./screens/Signin";
 import Signup from "./screens/Signup";
 import Dashboard from "./screens/Dashboard";
-import Search from "./screens/Search";
+import Search from "./screens/Profile";
 import Offers from "./screens/Offers";
 
 const Stack = createStackNavigator();
@@ -41,18 +42,35 @@ const AuthStack = () => {
 };
 const Home = () => {
   return (
-    <Tab.Navigator 
-    screenOptions={{
-      tabBarActiveTintColor:'black',
-      tabBarLabelStyle:{
-        fontSize:12,
-        fontWeight: "600"
-      }
-    }}>
+    <Tab.Navigator
+      initialRouteName="Dashboard"
+      screenOptions={{
+        tabBarActiveTintColor: "black",
+        tabBarLabelStyle: {
+          fontSize: 12,
+          fontWeight: "600",
+        },
+      }}
+    >
+      <Tab.Screen
+        name="Offers"
+        component={Offers}
+        options={{
+          headerShown: false,
+          tabBarIcon: ({ focused }) => {
+            return (
+              <MaterialCommunityIcons
+                name={focused ? "percent" : "percent-outline"}
+                size={24}
+                color="black"
+              />
+            );
+          },
+        }}
+      />
       <Tab.Screen
         name="Dashboard"
         component={Dashboard}
-
         options={{
           headerShown: false,
           tabBarIcon: ({ focused }) => {
@@ -67,30 +85,14 @@ const Home = () => {
         }}
       />
       <Tab.Screen
-        name="Search"
+        name="Profile"
         component={Search}
         options={{
           headerShown: false,
           tabBarIcon: ({ focused }) => {
             return (
               <Ionicons
-                name={focused ? "search" : "search-outline"}
-                size={24}
-                color="black"
-              />
-            );
-          },
-        }}
-      />
-      <Tab.Screen
-        name="Offers"
-        component={Offers}
-        options={{
-          headerShown: false,
-          tabBarIcon: ({ focused }) => {
-            return (
-              <MaterialCommunityIcons
-                name={focused ? "percent" : "percent-outline"}
+                name={focused ? "person" : "person-outline"}
                 size={24}
                 color="black"
               />
