@@ -1,12 +1,12 @@
-import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native'
+import { StyleSheet, Text, View, Image, TouchableOpacity, KeyboardAvoidingView } from 'react-native'
 import React, { useState } from 'react'
 import { Entypo } from "@expo/vector-icons";
 import DeliveryStepper from './DeliveryStepper';
-const Order = () => {
+const Order = ({orderid, status,date,from,to}) => {
   const [currentStep, setCurrentStep] = useState(4);
   
   return (
-    <View>
+    <KeyboardAvoidingView>
       <View style={styles.container}>
         <View style={styles.dlvryHead}>
           <View style={{ marginLeft: 5, marginTop: 5 }}>
@@ -17,8 +17,8 @@ const Order = () => {
           </View>
 
           <View style={styles.orderTitle}>
-            <Text style={styles.orderID}>#MRFA007RSR</Text>
-            <Text>on the way | 13 September 2023</Text>
+            <Text style={styles.orderID}>{orderid}</Text>
+            <Text>{status} | {date}</Text>
           </View>
           <TouchableOpacity>
             <Entypo name="dots-three-vertical" size={16} color="grey" />
@@ -29,12 +29,12 @@ const Order = () => {
         </View>
         <View>
           <View style={styles.u}>
-            <Text style={styles.t}>From</Text>
-            <Text style={styles.t}>To</Text>
+            <Text style={styles.t}>{from}</Text>
+            <Text style={styles.t}>{to}</Text>
           </View>
         </View>
       </View>
-    </View>
+    </KeyboardAvoidingView>
   );
 }
 

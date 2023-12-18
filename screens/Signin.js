@@ -9,23 +9,41 @@ import {
 import { MaterialIcons } from "@expo/vector-icons";
 import React, { useState } from "react";
 import { StatusBar } from "expo-status-bar";
+import { FIREBASE_APP, FIREBASE_AUTH, DB } from "../FirebaseConfig";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { collection, addDoc } from "firebase/firestore";
+
 const Signin = ({ navigation }) => {
+
+  const auth = FIREBASE_AUTH;
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-
+  const [loading, setLoading]= useState(false);
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
   const joinNow = () => {
     navigation.navigate("Signup");
+    
   };
 
-  const handleSignin = () => {
-    console.warn("Sign in completed");
-    navigation.navigate("Home");
-    // code for sign in logic
-  };
+ const handleSignin= async () =>{
+  setLoading(true);
+  try{
+    const res = await signInWithEmailAndPassword(auth, email, password);
+    console.log('resonse: ', res);
+    if (res){
+      alert('Successfully logged in');
+      navigation.replace('Home')
+      }else{
+        throw new Error('Failed to log in');
+        }
+        }catch({message}){
+          alert(message)
+          setLoading(false);
+          }
+ }
 
   return (
     <View style={styles.container}>

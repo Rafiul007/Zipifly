@@ -15,6 +15,8 @@ import Signup from "./screens/Signup";
 import Dashboard from "./screens/Dashboard";
 import Search from "./screens/Profile";
 import Offers from "./screens/Offers";
+import PickupScreen from "./screens/PickupScreen";
+import DropOffScreen from "./screens/DropOffScreen"
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -40,6 +42,9 @@ const AuthStack = () => {
     </Stack.Navigator>
   );
 };
+
+
+
 const Home = () => {
   return (
     <Tab.Navigator
@@ -122,6 +127,11 @@ function App() {
         <Stack.Screen
           name="Home"
           component={Home}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="Pickup"
+          component={PickupScreen}
           options={{ headerShown: false }}
         />
       </Stack.Navigator>

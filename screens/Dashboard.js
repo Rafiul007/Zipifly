@@ -6,6 +6,7 @@ import {
   StyleSheet,
   TouchableOpacity,
   Image,
+  KeyboardAvoidingView,
 } from "react-native";
 import React, { useState } from "react";
 import { StatusBar } from "expo-status-bar";
@@ -14,13 +15,21 @@ import LinearGradient from "react-native-linear-gradient";
 import { SafeAreaView } from "react-native-safe-area-context";
 import SecondTab from "../components/SecondTab";
 import Order from "../components/Order";
-
-const Dashboard = () => {
+import { FIREBASE_AUTH } from "../FirebaseConfig";
+const Dashboard = ({navigation}) => {
+  const user = FIREBASE_AUTH.currentUser;
+  if(user){
+    const uid = user.uid;
+    const userEmail = user.email;
+    alert("User: ", userEmail);
+  }else{
+    console.log("No user login")
+    navigation.navigate('Login')
+  }
   const [search, setSearch] = useState("");
-
   return (
-    <View style={styles.container}>
-      <SafeAreaView style={styles.blackContainer}>
+    <SafeAreaView style={styles.container}>
+      <View style={styles.blackContainer}>
         <View style={styles.location}>
           <Ionicons name="location-sharp" size={25} color="black" />
           <Text>Uttara, Dhaka</Text>
@@ -44,9 +53,9 @@ const Dashboard = () => {
           </TouchableOpacity>
         </View>
         <View style={styles.tab}>
-          <SecondTab />
+          <SecondTab navigation={navigation} />
         </View>
-      </SafeAreaView>
+      </View>
 
       <View
         style={{
@@ -85,18 +94,15 @@ const Dashboard = () => {
           marginTop: 20,
         }}
       >
-        <Order />
+        <Order
+          orderid={"#MRF007RSR"}
+          status={"on the way"}
+          date={"13 September 2023"}
+          from={"mrBata"}
+          to={"beingRafie"}
+        />
       </View>
-      <View
-        style={{
-          justifyContent: "center",
-          alignItems: "center",
-          marginTop: 30,
-        }}
-      >
-        <Order />
-      </View>
-    </View>
+    </SafeAreaView>
   );
 };
 
@@ -126,12 +132,13 @@ const styles = StyleSheet.create({
   blackContainer: {
     width: "100%",
     backgroundColor: "black",
-    height: "40%",
+    height: 280,
+    position: "relative",
   },
   tab: {
-    position: "relative",
-    top: 30,
-    left: 20,
+    position: "absolute",
+    top: 260,
+    left: 40,
   },
   ipic: {
     width: 20,

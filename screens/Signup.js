@@ -10,6 +10,9 @@ import Checkbox from "expo-checkbox";
 import React, { useState } from "react";
 import { MaterialIcons } from "@expo/vector-icons";
 import { StatusBar } from "expo-status-bar";
+import { DB, FIREBASE_AUTH } from "../FirebaseConfig";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { collection, addDoc } from "firebase/firestore";
 
 const Signup = ({ navigation }) => {
   const [email, setEmail] = useState("");
@@ -27,10 +30,27 @@ const Signup = ({ navigation }) => {
     navigation.navigate("Signin");
   };
 
-  const handleSignup = () => {
-    //code for sign up
-    alert("handle sign up")
+  const handleSignup = async () => {
+    if (password !== cfmPass) {
+      alert("Please make sure your password matches!");
+    } else {
+      try {
+        await createUserWithEmailAndPassword(FIREBASE_AUTH, email, password);
+        const docRef = await addDoc(collection(DB, "Users"), {
+          name: name,
+          phone: phone,
+          email: email,
+        });
+        navigation.navigate("Signin")
+        alert(`Account created for ${name}`);
+      } catch (error) {
+        console.log(error);
+        alert("Something went wrong!");
+      }
+    }
   };
+
+
   return (
     <View style={styles.container}>
       <StatusBar style="dark" />
@@ -97,8 +117,8 @@ const Signup = ({ navigation }) => {
           style={[styles.input, styles.passwordInput]}
           placeholder="*************"
           secureTextEntry={!showPassword}
-          value={password}
-          onChangeText={(text) => setPassword(text)}
+          value={cfmPass}
+          onChangeText={(text) => setcfmPass(text)}
         />
         <TouchableOpacity
           onPress={togglePasswordVisibility}

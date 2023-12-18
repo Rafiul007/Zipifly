@@ -3,11 +3,14 @@ import React from "react";
 import { Feather } from "@expo/vector-icons";
 import { TouchableOpacity } from "react-native";
 
-const SecondTab = () => {
+const SecondTab = ({navigation}) => {
+  const handlePickup = ()=>{
+    navigation.navigate("Pickup")
+  }
   return (
     <View style={styles.nav}>
       {/* ---------------------1 */}
-      <TouchableOpacity style={styles.icon}>
+      <TouchableOpacity style={styles.icon} onPress={handlePickup}>
         <Image source={require("../assets/icons/1.png")} style={styles.ipic} />
         <Text style={styles.itxt}>Pickup</Text>
       </TouchableOpacity>
